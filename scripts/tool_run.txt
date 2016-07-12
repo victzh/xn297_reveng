@@ -1,0 +1,6 @@
+# record at freq 2.4GHz, sample rate 16Msps, bandwidth 5MHz, 1M samples
+hackrf_transfer.exe -r 2400_2_xn_0505_crc_5.dat -f 2400000000 -s 16000000 -b 5000000 -n 1000000
+# demodulate signal with base frequency 2.4GHz, offset to signal 2MHz, sample rate 16Msps, data rate 1Mbps
+python ..\demod_fsk.py 2400_2_xn_0505_crc_5.dat xn_0505_crc_5.demod.dat -f 2400000000 -o 2000000 -s 16000000 -b 1000000
+# find packets of length 56 bits and decode them assuming oversample 16
+python ..\find_packet.py xn_0505_crc_5.demod.dat -c 56 -t 16 >xn_0505_crc_5.packets_2.txt
